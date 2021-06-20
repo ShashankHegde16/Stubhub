@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { RequestValidationError } from '../errors/request-validation';
-import { DatabaseConnectionError } from '../errors/database-connection';
 
 const router = express.Router();
 
@@ -20,7 +19,6 @@ router.post('/api/users/signup',
             const error = new RequestValidationError(errors.array());
             throw error;
         }
-        throw new DatabaseConnectionError();
         res.send({})
     });
 
