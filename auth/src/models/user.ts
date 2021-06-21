@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
+/**
+ * Interface for creating the users
+ */
 interface UserKeys {
     email: string;
     password: string;
@@ -13,6 +17,7 @@ interface UserDocument extends mongoose.Document {
     email: string;
     password: string;
 }
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -22,6 +27,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+});
+
+userSchema.pre('save', async function (done) {
+    // using the anonymos fn to make use of middleware functions
+    // if password is modified hash it.
+    if (this.isModified('password')) {
+        const hashed = await Password.toHash(this.get('password'));
+        this.set('password', hashed);
+    }
+    done();
 });
 
 userSchema.statics.build = (attr: UserKeys) => {
