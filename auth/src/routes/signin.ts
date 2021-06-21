@@ -37,7 +37,6 @@ router.post('/api/users/signin', [
         req.session = {
             jwt: token
         }
-
         res.status(200).send(user);
         
     });

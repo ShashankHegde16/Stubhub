@@ -20,7 +20,6 @@ router.post('/api/users/signup',
 
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email });
-console.log(existingUser)
         if (existingUser) {
             const error = new BadRequestError('An account with the email address already in use.');
             throw error;
