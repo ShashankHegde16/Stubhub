@@ -5,7 +5,6 @@ import { User } from '../models/user';
 import { ValidateRequest } from '../middlewares/validate-request';
 import { BadRequestError } from '../errors/bad-request';
 import { Password } from '../services/password';
-import { updateJsxSpreadAttribute, updateSpreadAssignment } from 'typescript';
 const router = express.Router();
 
 router.post('/api/users/signin', [
